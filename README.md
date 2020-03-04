@@ -1,6 +1,6 @@
 ## Project 2: Ames Housing Data and Kaggle Challenge
 
-### Executive Summary
+### Summary
 
 In this project, I used the AMES Housing data to create a linear regression model to predict the sale price of a house in Ames Iowa. Based on my Linear Regression, the model can predict the house's price is within $32,000 on average. Based on my model, the features with the most wight to sale price are overall quality, number of full baths, and kitchen quality.
 
