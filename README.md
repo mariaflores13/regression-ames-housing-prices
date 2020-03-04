@@ -74,14 +74,14 @@ As part of my Zillow assignment, I had to test three different models: Linear Re
 ---
 
 ### Business Recommendations
-Although the Linear Model is not perfect and improving it is an iterative process, it performed well enough to predicted the house's price within $31,987.88 on average. Sale price in Ames, Iowa is, on average, much lower than tech-dominant markets such as Los Angeles or San Francisco. Based on the provided data and Zillow's estimator, [SF Median Home Value](https://www.zillow.com/san-francisco-ca/home-values/) and [LA Median Home Valie](https://www.zillow.com/los-angeles-ca/home-values/), I found that in each city, the median sale price values for a home are:
+Although the Linear Model is not perfect and improving it is an iterative process, it performed well enough to predicted the house's price within $31,987.88 on average. Sale price in Ames, Iowa is, on average, much lower than tech-dominant markets such as Los Angeles or San Francisco. Based on the provided data and Zillow's estimator, [SF Median Home Value](https://www.zillow.com/san-francisco-ca/home-values/) and [LA Median Home Value](https://www.zillow.com/los-angeles-ca/home-values/), I found that in each city, the median sale price values for a home are:
 - Ames: $180,500
 - Los Angeles: $717,583
 - San Francisco: $1,387,263
 
-My recommendations are that Ames, Iowa checks off the housing affordability factor, in which, a tech company would benefit from expanding to Ames. Affordable housing appeals to outside talent and retains current talent. Although housing in Ames is within a dream price range for an expanding tech market, the other 4 factors must surely be investigated further.
+Given the sale price trends and predictions, Ames, Iowa marks off the housing affordability factor – from which a tech company would benefit expanding to. Affordable housing appeals to outside talent and retains current talent. Although housing in Ames is within a dream price range for an expanding tech market, the other 4 factors must surely be investigated further.
 
-Tech-Available Markets Factor: I researched the [U.S. Bureau of Labor Statistics](https://data.bls.gov/lausmap/showMap.jsp;jsessionid=26AFE327E0F12840099BEBC18A61C7FF._t3_06v) and found that Ames unemployment rates were at 1.6% in 2018, compared to those in Los Angeles, which were at 4.2%. Zillow states that a labor market with lower unemployment rates can support a growing economy because it leaves room for outside tech talent to come in and take advantage of the unique work-in-tech-own-a-house opportunity.
+Tech-Available Markets Factor: I researched the [U.S. Bureau of Labor Statistics](https://data.bls.gov/lausmap/showMap.jsp;jsessionid=26AFE327E0F12840099BEBC18A61C7FF._t3_06v) database and found that Ames unemployment rates were at 1.6% in 2018, compared to those in Los Angeles, which were at 4.2%. Zillow states that a labor market with lower unemployment rates can support a growing economy because it leaves room for outside tech talent to come in and take advantage of the unique work-in-tech-own-a-house opportunity.
 
 ---
 
