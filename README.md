@@ -9,16 +9,16 @@ In this project, I used the AMES Housing data to create a linear regression mode
 
 ### Problem Statement
 
-Focusing on Zillow's factors that suggest market expansion, how can Zillow determine if Ames, Iowa is a favorable market for tech expansion?
+Focusing on Zillow's factors that suggest market expansion, how can I determine if Ames, Iowa is a favorable market for tech expansion?
 
 Factors that could suggest tech growth:  
 1) Housing affordability  
-2) Market "hotness"  
+2) Market's "hotness"  
 3) Demographics & Labor Market  
 4) Tech availability  
 5) Livability
 
-I am focusing on housing affordability to help determine if Ames is a favorable market for tech expansion. As Zillow suggests, no matter what a resident's income value is, "tech-dominant markets [like San Francisco or Los Angeles] have become notoriously unaffordable." With this in mind, where may the next Silicon Valley lie? Does Ames, Iowa have the desirable mix of affordable housing and the above listed factors? – which, due to the scope of this project, the other factors won't be explored in detail.
+For this project, I am focusing on 1: *Housing Affordability* to help determine if Ames is a favorable market for tech expansion. As Zillow suggests, no matter what a resident's income value is, "tech-dominant markets [like San Francisco or Los Angeles] have become notoriously unaffordable." With this in mind, where may the next Silicon Valley lie? Does Ames, Iowa have the desirable mix of affordable housing and the above listed factors? – which, due to the scope of this project, the other factors won't be explored in detail.
 
 [Source](https://www.zillow.com/research/tech-expansion-markets-2020-26332/)
 
@@ -62,6 +62,11 @@ Many of the missing values in the training dataset were because an observation d
 #### Ordinal & Nominal Values
 Many of the original columns in the training dataset contained values that were ordinal or nominal strings. To be able to plot these columns against sale price later - and determine correlation strength in model feature selection - I replaced ordinal values with integers using a dictionary replacements.
 
+![image](./images/neighborhood_avg_sale_price.png)
+
+![image](./images/overall_qual_avg_sale_price.png)
+
+![image](./images/exter_qual_avg_sale_price.png)
 
 #### Exploratory Visualizations
 After managing null values, I looked at the distribution of numerical columns by plotting boxplots and histograms as well as the correlation of features and sale price by running scatter plots/heatmaps. By identifying features that had a stronger correlation with sale price, I created interaction columns that integrate features that are directly related or depend on one another. For instance, I created a new column `bed_bath_ratio` that finds the ratio of the number of bedrooms to number of bathrooms. These two features are more indicative when integrated because they are expected to be proportional, and therefore, their ratio relationship is more important when estimating price.
@@ -70,7 +75,7 @@ After managing null values, I looked at the distribution of numerical columns by
 
 ### Modeling
 
-I establisbed my baseline prediction and found that the R2 score is 0. This means that indicates that the model explains none of the variability of the data. I was curious to see how taking the log of saleprice would affect the model so I added a column where I took the logarithm of the saleprice, that is, `train['saleprice_log'] = np.log(train['saleprice'])`. I set the log of sale price to be my target vector and from that, my RMSE score dropped by $10,000. I instantiated, fit, and train/test/split my model to get a trainig R2 score of 85% and test R2 score of 85%. The R2 scores indicates that 85% of the variability in my data can be explained by the linear model. After predicing `X_train`, I was able to get and RMSE score of $31,987.88. This indicates that, based on my Linear Regression, the model can predict the house's price is within $31,987.88 on avereage.
+I established my baseline prediction and found that the R2 score is 0. This means that indicates that the model explains none of the variability of the data. I was curious to see how taking the log of `saleprice` would affect the model so I added a column where I took the logarithm of the `saleprice`, that is, `train['saleprice_log'] = np.log(train['saleprice'])`. I set the log of sale price to be my target vector and from that, my RMSE score dropped by $10,000. I instantiated, fit, and train/test/split my model to get a training R2 score of 85% and test R2 score of 85%. The R2 scores indicates that 85% of the variability in my data can be explained by the linear model. After predicting `X_train`, I was able to get and RMSE score of $31,987.88. This indicates that, based on my Linear Regression, the model can predict the house's price is within $31,987.88 on average.
 
 As part of my Zillow assignment, I had to test three different models: Linear Regression, Ridge, and Lasso and compare R2. I used `StandardScalar()` to standardize my data. Standardizing and then fitting `X_train` learns the means and standard deviations of each of our features. Then fit and transform `X_train` and call that `Z_train` to distinguish z-scores. After transforming my features, I instantiated and fit the Ridge and Lasso models, and found that they produce the same R2 scores, meaning they also explain 85% of the variability in the data.
 
