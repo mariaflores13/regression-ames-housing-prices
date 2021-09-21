@@ -7,7 +7,7 @@ In this project, I used the AMES Housing data to create a linear regression mode
 
 ---
 
-### Problem Statement
+### Problem Statement (Theoretical)
 
 Focusing on Zillow's factors that suggest market expansion, how can I determine if Ames, Iowa is a favorable market for tech expansion?
 
@@ -18,7 +18,7 @@ Factors that could suggest tech growth:
 4) Tech availability  
 5) Livability
 
-For this project, I am focusing on 1: *Housing Affordability* to help determine if Ames is a favorable market for tech expansion. As Zillow suggests, no matter what a resident's income value is, "tech-dominant markets [like San Francisco or Los Angeles] have become notoriously unaffordable." With this in mind, where may the next Silicon Valley lie? Does Ames, Iowa have the desirable mix of affordable housing and the above listed factors? – which, due to the scope of this project, the other factors won't be explored in detail.
+For this project, I am focusing on 1: *Housing Affordability* to help determine if Ames is a favorable market for tech expansion. As Zillow suggests, no matter what a resident's income value is, "tech-dominant markets have become notoriously unaffordable." Can we predict housing prices in Ames, Iowa and determine its affordability? Due to the scope of this project,I will not be exploring the remaining four factors listed above.
 
 [Source](https://www.zillow.com/research/tech-expansion-markets-2020-26332/)
 
@@ -57,27 +57,34 @@ For this project, we were provided with two datasets:
 
 
 #### Missing Values
-Many of the missing values in the training dataset were because an observation did not have the specified feature. For example, the original column, `PoolQC` meaning pool quality contained the most missing values. `Nan` values indicated that a house did not have a pool, as indicated in the data dictionary for all 81 columns. I handled this by converting `PoolQC` into a dummy column named `has_pool` where a non-null value, maps to 1, indicating that a pool exists, and a null value maps to 0, indicating that there is no pool. Following this logical imputation process, along with the original data dictionary, I was able to impute parallel missing values with 0's.
+Many of the missing values in the training dataset were missing because an observation did not have the specified feature. For example, the original column, `PoolQC` meaning pool quality contained the most missing values. `Nan` values indicated that a house did not have a pool, as indicated in the data dictionary for all 81 columns. I decided to convert `PoolQC` into a dummy column named `has_pool` where a non-null value, maps to 1, indicating that a pool exists, and a null value maps to 0, indicating that there is no pool. Following this logical imputation process, along with the original data dictionary, I was able to impute parallel missing values with 0's.
 
 #### Ordinal & Nominal Values
 Many of the original columns in the training dataset contained values that were ordinal or nominal strings. To be able to plot these columns against sale price later - and determine correlation strength in model feature selection - I replaced ordinal values with integers using a dictionary replacements.
 
-![image](./images/neighborhood_avg_sale_price.png)
-
-![image](./images/overall_qual_avg_sale_price.png)
-
-![image](./images/exter_qual_avg_sale_price.png)
-
 #### Exploratory Visualizations
 After managing null values, I looked at the distribution of numerical columns by plotting boxplots and histograms as well as the correlation of features and sale price by running scatter plots/heatmaps. By identifying features that had a stronger correlation with sale price, I created interaction columns that integrate features that are directly related or depend on one another. For instance, I created a new column `bed_bath_ratio` that finds the ratio of the number of bedrooms to number of bathrooms. These two features are more indicative when integrated because they are expected to be proportional, and therefore, their ratio relationship is more important when estimating price.
 
+#### Highest Correlating features
+After cleaning the data and analyzing a heatmap of sale price with features, I noticed how the highest correlating features are `overall_qual` and `exterior_qual`. Below I looked at the average sale price by these two features and saw that as the score for both increases, average sale price also increases.
+
+*What is the average home sale proce by overall quality?*
+![image](./images/overall_qual_avg_sale_price.png)
+
+*What is the average home sale price by exterior quality?*
+![image](./images/exter_qual_avg_sale_price.png)
+
+I explored grouping neighborhoods and comparing their corresponding average sale price, since it is universally known that location greatly factors into housing prices. From the image, I see that there are four neighborhoods with higher average sale prices than the rest.
+
+*What is the average home sale price by neighborhood?*
+![image](./images/neighborhood_avg_sale_price.png)
 ---
 
 ### Modeling
 
 I established my baseline prediction and found that the R2 score is 0. This means that indicates that the model explains none of the variability of the data. I was curious to see how taking the log of `saleprice` would affect the model so I added a column where I took the logarithm of the `saleprice`, that is, `train['saleprice_log'] = np.log(train['saleprice'])`. I set the log of sale price to be my target vector and from that, my RMSE score dropped by $10,000. I instantiated, fit, and train/test/split my model to get a training R2 score of 85% and test R2 score of 85%. The R2 scores indicates that 85% of the variability in my data can be explained by the linear model. After predicting `X_train`, I was able to get and RMSE score of $31,987.88. This indicates that, based on my Linear Regression, the model can predict the house's price is within $31,987.88 on average.
 
-As part of my Zillow assignment, I had to test three different models: Linear Regression, Ridge, and Lasso and compare R2. I used `StandardScalar()` to standardize my data. Standardizing and then fitting `X_train` learns the means and standard deviations of each of our features. Then fit and transform `X_train` and call that `Z_train` to distinguish z-scores. After transforming my features, I instantiated and fit the Ridge and Lasso models, and found that they produce the same R2 scores, meaning they also explain 85% of the variability in the data.
+I tested three different models: Linear Regression, Ridge, and Lasso and compare R2. I used `StandardScalar()` to standardize my data. Standardizing and then fitting `X_train` learns the means and standard deviations of each of our features. Then fit and transform `X_train` and call that `Z_train` to distinguish z-scores. After transforming my features, I instantiated and fit the Ridge and Lasso models, and found that they produce the same R2 scores, meaning they also explain 85% of the variability in the data.
 
 ![image](./images/linear.png)  
 
@@ -93,9 +100,9 @@ Although the Linear Model is not perfect and improving it is an iterative proces
 - Los Angeles: $717,583
 - San Francisco: $1,387,263
 
-Given the sale price trends and predictions, Ames, Iowa marks off the housing affordability factor – from which a tech company would benefit expanding to. Affordable housing appeals to outside talent and retains current talent. Although housing in Ames is within a dream price range for an expanding tech market, the other 4 factors must surely be investigated further.
+Given the sale price trends and predictions, Ames, Iowa marks off the housing affordability factor. Affordable housing appeals to outside talent and retains current talent. Although housing in Ames is within a dream price range for an expanding tech market, the other 4 factors must surely be investigated further.
 
-Tech-Available Markets Factor: I researched the [U.S. Bureau of Labor Statistics](https://data.bls.gov/lausmap/showMap.jsp;jsessionid=26AFE327E0F12840099BEBC18A61C7FF._t3_06v) database and found that Ames unemployment rates were at 1.6% in 2018, compared to those in Los Angeles, which were at 4.2%. Zillow states that a labor market with lower unemployment rates can support a growing economy because it leaves room for outside tech talent to come in and take advantage of the unique work-in-tech-own-a-house opportunity.
+Tech-Available Markets Factor: I researched the [U.S. Bureau of Labor Statistics](https://data.bls.gov/lausmap/showMap.jsp;jsessionid=26AFE327E0F12840099BEBC18A61C7FF._t3_06v) database and found that Ames unemployment rates were at 1.6% in 2018, compared to those in Los Angeles, which were at 4.2%.
 
 ---
 
